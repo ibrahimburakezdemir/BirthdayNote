@@ -9,11 +9,13 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    var userName = ""
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var birthdayTextField: UITextField!
     @IBOutlet weak var birthdayLabel: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +61,25 @@ class ViewController: UIViewController {
             
             UserDefaults.standard.removeObject(forKey: "birthday")
             birthdayLabel.text = "Birthday:"
+            
+        }
+        
+    }
+    
+    
+    @IBAction func nextPageClicked(_ sender: Any) {
+        
+        userName = nameTextField.text!
+        performSegue(withIdentifier: "toSecondVC", sender: nil)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "toSecondVC" {
+            // as -- casting
+            let destinationVC = segue.destination as! SecondViewController
+            destinationVC.newName = "Name: \(userName)"
         }
         
     }
